@@ -1,5 +1,7 @@
 <?php
 
+include_once __DIR__ . "/config.php";
+include_once __DIR__ . "/api.php";
 
 $url = "https://api.openai.com/v1/chat/completions";
 
@@ -42,7 +44,7 @@ $options = [
     "http" => [
         "header" => [
             "Content-Type: application/json",
-            "Authorization: Bearer $apiKey"
+          "Authorization: Bearer " . $_ENV['OPENAI_API_KEY']
         ],
         "method" => "POST",
         "content" => json_encode($data),

@@ -1,5 +1,5 @@
 <?php
-include_once "connection.php";
+include_once __DIR__ . "/connection.php";
 
 $stmt = $conn->prepare("SELECT * FROM merch");
 

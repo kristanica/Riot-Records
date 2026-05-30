@@ -1,5 +1,5 @@
 <?php
-include_once "api.php";
+include_once __DIR__ . "/api.php";
 
 
 

@@ -1,5 +1,5 @@
 <?php
-include_once "connection.php";
+include_once __DIR__ . "/connection.php";
 if (isset($_POST["deleteComment"])) {
     $id = $_POST["deleteCommentId"];
 

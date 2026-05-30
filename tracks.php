@@ -1,7 +1,7 @@
 <?php
 // ensure getAlbum.php run only once
 session_start();
-include_once "php/getAlbum.php";
+include_once __DIR__ . "/php/getAlbum.php";
 if (isset($_POST["logout"])) {
     $_SESSION = [];
     session_destroy();
@@ -16,7 +16,7 @@ if (isset($_POST["logout"])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tracks</title>
-    <link rel="stylesheet" href="scroll.css">
+    <link rel="icon" href="./assets/paramore-icon.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="scroll.css">
@@ -39,67 +39,81 @@ if (isset($_POST["logout"])) {
 
 </head>
 
-<body class="min-h-screen min-w-screen bg-[#1c151a] text-white">
-    <div class="fixed inset-0 bg-[url(./assets/optimized-logo-gif.webp)] opacity-30 -z-10 "></div>
+<body class="min-h-screen min-w-screen bg-[#0d0d10] text-zinc-100 font-exo">
+    <div class="fixed inset-0 bg-gradient-to-b from-[#0d0d10] via-[#111117] to-[#15151b] -z-10"></div>
 
-    <div class="fixed top-5 left-0 right-0 flex justify-between px-10  gap-3 z-10">
-        <div class="flex flex-col gap-5">
-            <a class="cursor-pointer text-sm hover:underline tracking-[15px] " href="dashboard.php">HOME</a>
-            <a class="cursor-pointer text-sm hover:underline tracking-[15px] " href="album.php">ALBUM</a>
-            <a class="cursor-pointer text-sm hover:underline tracking-[15px] " href="tracks.php">TRACKS</a>
-            <a class="cursor-pointer text-sm hover:underline tracking-[15px] " href="allReleases.php">ALL RELEASES</a>
-            <a class="cursor-pointer text-sm hover:underline tracking-[15px] " href="comments.php">COMMENTS</a>
+    <div class="fixed top-0 left-0 right-0 z-10 bg-[#0d0d10]/80 backdrop-blur border-b border-white/10 px-6 py-4 flex justify-between items-center">
+        <div class="flex items-center gap-6">
+            <a class="text-[11px] uppercase tracking-[0.3em] text-zinc-300 hover:text-white transition" href="dashboard.php">Home</a>
+            <a class="text-[11px] uppercase tracking-[0.3em] text-zinc-300 hover:text-white transition" href="album.php">Album</a>
+            <a class="text-[11px] uppercase tracking-[0.3em] text-zinc-300 hover:text-white transition" href="tracks.php">Tracks</a>
+            <a class="text-[11px] uppercase tracking-[0.3em] text-zinc-300 hover:text-white transition" href="allReleases.php">All Releases</a>
+            <a class="text-[11px] uppercase tracking-[0.3em] text-zinc-300 hover:text-white transition" href="comments.php">Comments</a>
+            <a class="text-[11px] uppercase tracking-[0.3em] text-zinc-300 hover:text-white transition" href="quiz.php">Quiz</a>
         </div>
-        <div class="flex flex-col gap-5 items-end">
+        <div class="flex items-center gap-4">
 
             <!-- Checks wether user is login -->
             <?php
             if (isset($_SESSION["id"])) {
             ?>
                 <form method="post">
-                    <button type="submit" name="logout" class="cursor-pointer text-sm hover:underline tracking-[15px] ">LOG OUT</button>
+                    <button type="submit" name="logout" class="text-[11px] uppercase tracking-[0.3em] text-zinc-300 hover:text-white transition">Log out</button>
                 </form>
             <?php } else { ?>
-                <a class="cursor-pointer text-sm hover:underline tracking-[15px] " href="register.php">REGISTER</a>
-                <a class="cursor-pointer text-sm hover:underline tracking-[15px] " href="login.php">LOGIN</a>
+                <a class="text-[11px] uppercase tracking-[0.3em] text-zinc-300 hover:text-white transition" href="register.php">Register</a>
+                <a class="text-[11px] uppercase tracking-[0.3em] text-zinc-300 hover:text-white transition" href="login.php">Login</a>
             <?php } ?>
         </div>
     </div>
-    <header class="h-[20vh] flex flex-col justify-end items-center text-center relative">
-        <img src="./assets/optimized-logo-gif.webp" class="h-24 w-24 fixed top-10 z-2 inset-50">
-        <p class="text-center font-exo tracking-widest">From “All We Know” to “This Is Why”—every track matters.</p>
+    <header class="pt-24 pb-10 flex flex-col items-center text-center">
+        <img src="./assets/optimized-logo-gif.webp" class="h-12 w-12 opacity-80">
+        <p class="text-sm text-zinc-400 tracking-wide mt-4">From “All We Know” to “This Is Why”—every track matters.</p>
 
     </header>
     <main>
-
-        <div id="albums" class=" overflow-x-auto py-10 px-5 grid grid-cols-1 md:grid-cols-2 gap-10  max-w-[80%] mx-auto ">
+        <div id="albums" class="max-w-6xl mx-auto px-6 pb-16 space-y-6">
 
 
             <!-- Display filteredalbums as album -->
             <?php foreach ($filteredAlbums as $album): ?>
-                <div class="trackContent grid grid-cols-1 h-auto relative transition-all duration-500 w-full z-0 cursor-pointer">
+                <div class="trackContent group relative transition-all duration-500 w-full cursor-pointer bg-[#15151b] border border-white/10 rounded-2xl p-5 hover:-translate-y-1 hover:border-[#ff4d5a]/40">
+                    <div class="grid gap-5 md:grid-cols-[220px_1fr] items-start">
+                        <div class="relative overflow-hidden rounded-xl border border-white/10">
+                            <!-- Retrieves the image -->
+                            <img src="<?= $album["image"] ?>" class="w-full h-52 object-cover">
+                            <div class="absolute inset-0 bg-gradient-to-t from-[#0d0d10]/70 via-transparent to-transparent"></div>
+                            <div class="absolute bottom-3 left-3">
+                                <p class="text-[10px] uppercase tracking-[0.3em] text-zinc-400">Tracks</p>
+                                <p class="text-sm uppercase tracking-[0.3em] text-white"><?= $album["name"] ?></p>
+                            </div>
+                        </div>
 
-                    <div class="flex justify-center items-center relative">
-                        <!-- Retrieves the image -->
-                        <img src="<?= $album["image"] ?>" class="h-[450px] object-contain border-yellow-400 border-[2px]">
-
-                    </div>
-                    <div class="albumDetails max-h-0 overflow-hidden transition-all duration-500 ease-in-out opacity-0 pointer-events-none">
-                        <p class="text-center text-xl mt-2 font-exo font-bold uppercase text-yellow-400">
-                            <?= $album["name"] ?>
-                        </p>
-                        <div class="overflow-y-auto max-h-[300px] mt-2">
-                            <?php foreach ($album["trackDetails"] as $track): ?>
-                                <?php
-                                $minutes = floor($track["trackDuration"] / 60);
-                                $seconds = $track["trackDuration"] % 60;
-                                $formattedDuration = sprintf("%d:%02d", $minutes, $seconds);
-                                ?>
-                                <div class="flex flex-col text-gray-200 font-medium mb-1">
-                                    <span class="truncate"><?= $track["trackName"] ?></span>
-                                    <span class="text-gray-400 text-sm"><?= $formattedDuration ?></span>
+                        <div class="flex flex-col">
+                            <div class="flex items-start justify-between gap-4">
+                                <div>
+                                    <p class="text-[10px] uppercase tracking-[0.3em] text-zinc-400">Tracklist</p>
+                                    <p class="text-white text-sm uppercase tracking-[0.3em] mt-1"><?= $album["name"] ?></p>
+                                    <p class="text-zinc-400 text-xs mt-1"><?= count($album["trackDetails"]) ?> tracks</p>
                                 </div>
-                            <?php endforeach; ?>
+                                <span class="text-[10px] uppercase tracking-[0.3em] text-zinc-400">Click to expand</span>
+                            </div>
+
+                            <div class="albumDetails max-h-0 overflow-hidden transition-all duration-500 ease-in-out opacity-0 pointer-events-none mt-4 border-t border-white/10 pt-4">
+                                <div class="overflow-y-auto max-h-[300px] pr-2">
+                                    <?php foreach ($album["trackDetails"] as $track): ?>
+                                        <?php
+                                        $minutes = floor($track["trackDuration"] / 60);
+                                        $seconds = $track["trackDuration"] % 60;
+                                        $formattedDuration = sprintf("%d:%02d", $minutes, $seconds);
+                                        ?>
+                                        <div class="flex items-center justify-between text-zinc-200 text-sm py-2 border-b border-white/5 last:border-b-0">
+                                            <span class="truncate"><?= $track["trackName"] ?></span>
+                                            <span class="text-zinc-400 text-xs"><?= $formattedDuration ?></span>
+                                        </div>
+                                    <?php endforeach; ?>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -113,32 +127,33 @@ if (isset($_POST["logout"])) {
 
 
     <!-- SImple footer -->
-    <footer class="bg-black">
-        <div class="grid grid-cols-3 py-5">
+    <footer class="bg-[#0b0b0d] border-t border-white/10">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 px-6 py-10">
             <div class="flex flex-col justify-center items-center">
-                <img src="./assets/optimized-logo-gif.webp" class="h-24 w-24">
+                <img src="./assets/optimized-logo-gif.webp" class="h-14 w-14 opacity-80">
 
             </div>
-            <div class="flex flex-col justify-center">
-                <a class="cursor-pointer font-exo text-sm  hover:underline" href="dashboard.php">HOME</a>
-                <a class="cursor-pointer font-exo text-sm  hover:underline" href="album.php">ALBUM</a>
-                <a class="cursor-pointer font-exo text-sm  hover:underline" href="tracks.php">TRACKS</a>
-                <a class="cursor-pointer font-exo text-sm hover:underline" href="allReleases.php">ALL RELEASES</a>
+            <div class="flex flex-col justify-center gap-2">
+                <a class="text-xs uppercase tracking-[0.3em] text-zinc-400 hover:text-white transition" href="dashboard.php">Home</a>
+                <a class="text-xs uppercase tracking-[0.3em] text-zinc-400 hover:text-white transition" href="album.php">Album</a>
+                <a class="text-xs uppercase tracking-[0.3em] text-zinc-400 hover:text-white transition" href="tracks.php">Tracks</a>
+                <a class="text-xs uppercase tracking-[0.3em] text-zinc-400 hover:text-white transition" href="allReleases.php">All Releases</a>
+                <a class="text-xs uppercase tracking-[0.3em] text-zinc-400 hover:text-white transition" href="quiz.php">Quiz</a>
             </div>
             <div class="flex flex-col justify-center text-center md:text-left space-y-3">
-                <h2 class="text-white font-semibold tracking-wider font-exo">FOLLOW PARAMORE</h2>
+                <h2 class="text-xs uppercase tracking-[0.3em] text-zinc-400">Follow Paramore</h2>
                 <div class="flex justify-center md:justify-start gap-4 text-xl">
-                    <a class="hover:text-red-400 transition">🎵</a>
-                    <a class="hover:text-red-400 transition">📸</a>
-                    <a class="hover:text-red-400 transition">▶️</a>
+                    <a class="hover:text-[#ff4d5a] transition">🎵</a>
+                    <a class="hover:text-[#ff4d5a] transition">📸</a>
+                    <a class="hover:text-[#ff4d5a] transition">▶️</a>
                 </div>
 
-                <p class="text-sm text-gray-400 font-exo">
+                <p class="text-sm text-zinc-400">
                     Updates, concerts, announcements & more.
                 </p>
             </div>
-            <div class="col-span-3 text-center border-t border-gray-700 pt-5 mt-5">
-                <p class="text-gray-500 text-xs font-exo">
+            <div class="col-span-1 md:col-span-3 text-center border-t border-white/10 pt-6 mt-6">
+                <p class="text-zinc-500 text-[11px]">
                     © <?= date("Y") ?> Paramore Fan Page — For educational use only.
                 </p>
             </div>
