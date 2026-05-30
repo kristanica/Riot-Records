@@ -114,7 +114,7 @@ if (isset($_POST["logout"])) {
                 <p class="text-sm text-zinc-400">Updates, concerts, announcements & more.</p>
             </div>
             <div class="col-span-1 md:col-span-3 text-center border-t border-white/10 pt-6 mt-6">
-                <p class="text-zinc-500 text-[11px]">© <?= date("Y") ?> Paramore Fan Page — For educational use only.</p>
+                <p class="text-zinc-500 text-[11px]">© <?= date("Y") ?> Paramore Fan Page — For school project only.</p>
             </div>
         </div>
     </footer>
