@@ -33,7 +33,7 @@ Output Format (JSON):
 PROMPT;
 
 $data = [
-    "model" => "gpt-4.1",
+    "model" => "ag",
     "messages" => [
         ["role" => "system", "content" => $systemPrompt],
         ["role" => "user", "content" => "Generate a new Paramore multiple-choice question following the rules."]
